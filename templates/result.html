@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <title>Adam's Images</title>
+    </head>
+
+    <body>
+            <div class="container">
+
+                    <h1 class="heading" style="padding-bottom: 147px;">
+                        <a href="/">
+                            <img src="https://logos.textgiraffe.com/logos/logo-name/Adam-designstyle-candy-m.png" alt="Adam's Search" style="width: 129px;">
+                        </a>
+                        <br>
+                        Result Search Images
+                    </h1>
+
+                    <div class="gallery-item">
+                        <img class="gallery-image" src="{{url_for('static', filename=results[0].photo)}}"  alt="{{results[0].score}}" style="width: 357px;
+                        position: absolute;
+                        top: 28px;
+                        right: 77px;">
+                    </div>
+
+                    <div class="gallery">
+                        {% for result in results %}
+                        {% if(result.score != 100) %}
+                            <div class="gallery-item">
+                                <img class="gallery-image" src="{{url_for('static', filename=result.photo)}}"  alt="{{result.score}}">
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                
+                </div>
+    </body>
+</html>
+
+<style>
+
+    @import url(https://fonts.googleapis.com/css?family=Montserrat:500);
+
+    :root {
+        /* Base font size */
+        font-size: 10px;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        background-color: #fafafa;
+    }
+
+    .container {
+        max-width: 175rem;
+        margin: 0 auto;
+        padding: 0 2rem 2rem;
+    }
+
+    .heading {
+        font-family: "Montserrat", Arial, sans-serif;
+        font-size: 4rem;
+        font-weight: 500;
+        line-height: 1.5;
+        text-align: center;
+        padding: 3.5rem 0;
+        color: #1a1a1a;
+    }
+
+    .heading span {
+        display: block;
+    }
+
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        /* Compensate for excess margin on outer gallery flex items */
+        margin: -1rem -1rem;
+    }
+
+    .gallery-item {
+        /* Minimum width of 24rem and grow to fit available space */
+        flex: 1 0 24rem;
+        /* Margin value should be half of grid-gap value as margins on flex items don't collapse */
+        margin: 1rem;
+        box-shadow: 0.3rem 0.4rem 0.4rem rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .gallery-image {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 400ms ease-out;
+    }
+
+    .gallery-image:hover {
+        transform: scale(1.15);
+    }
+
+    @supports (display: grid) {
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+            grid-gap: 2rem;
+        }
+
+        .gallery,
+        .gallery-item {
+            margin: 0;
+        }
+    }
+</style>
